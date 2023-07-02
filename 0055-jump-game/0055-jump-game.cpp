@@ -1,16 +1,11 @@
 class Solution {
 public:
     bool canJump(vector<int>& nums) {
-        int idx=0,ans=0,maxi=0;
+        int idx=0;
         for(int i=0;i<size(nums);i++){
-            if(i>idx && maxi>idx){
-                idx=maxi;
-                ans++;
-            }else if(i>idx){
-                return false;
-            }
-            maxi=max(maxi,i+nums[i]);
+            if(i>idx) return false;
+            idx=max(idx,i+nums[i]);
         }
-        return ans>=0;
+        return idx>=size(nums)-1;
     }
 };
