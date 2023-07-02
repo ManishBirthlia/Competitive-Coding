@@ -3,13 +3,13 @@ public:
     int jump(vector<int>& nums) {
         int idx=0,ans=0,maxi=0;
         for(int i=0;i<size(nums);i++){
-            if(i>idx && maxi>idx){
-                idx=maxi;
+            if(i<=idx){
+                maxi=max(maxi,i+nums[i]);
+            }else{
                 ans++;
-            }else if(i>idx){
-                return -1;
+                idx=maxi;
+                maxi=max(maxi,i+nums[i]);
             }
-            maxi=max(maxi,i+nums[i]);
         }
         return ans;
     }
