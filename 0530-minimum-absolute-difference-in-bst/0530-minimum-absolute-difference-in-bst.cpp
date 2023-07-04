@@ -18,18 +18,14 @@ public:
         dfs(root->left);
         dfs(root->right);
     }
-    int getMinimumDifference(TreeNode* root) {
+    int getMinimumDifference(TreeNode* root){
         dfs(root);
-        int a=-1,ans=INT_MAX;
+        int ans=INT_MAX,t=pq.top();
+        pq.pop();
         while(!pq.empty()){
-            if(a!=-1){
-                ans=min(ans,abs(a-pq.top()));
-                a=pq.top();
-                pq.pop();
-            }else{
-                a=pq.top();
-                pq.pop();
-            }
+            ans=min(ans,abs(t-pq.top()));
+            t=pq.top();
+            pq.pop();
         }
         return ans;
     }
