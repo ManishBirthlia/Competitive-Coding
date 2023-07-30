@@ -12,10 +12,9 @@ public:
         c=dfs(i-50,j-50);
         d=dfs(i-25,j-75);
         return dp[i][j] = 0.25*(a+b+c+d);
-        // return 0.25*(a+b+c+d);
     }
     double soupServings(int n){
-        if(n>=4800) return 1;
+        if(n>=5000) return 1;
         return dfs(n,n);
     }
 };
