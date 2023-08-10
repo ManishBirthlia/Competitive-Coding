@@ -1,51 +1,31 @@
 class Solution {
 public:
-    int search(vector<int>& nums, int target) {
-        int low=0,high=nums.size()-1;
-				while(low<=high)
-				{
-					int mid=(low+high)/2;
-					if(nums[mid]==target)
-						return mid;
-					if(nums[low]<=nums[mid])
-					{
-						//left part is sorted...
-
-						if(target>=nums[low] && target<nums[mid])
-							high=mid-1;
-						else
-							low=mid+1;         
-					}
-					else
-					{
-						//right part is sorted...
-
-						if(target>nums[mid] && target<=nums[high])
-							low=mid+1;
-						else
-							high=mid-1;
-					}
-
-				}
-				return -1;
-        // int start=0,end=size(nums)-1;
-        // while(start<=end){
-        //     int mid=(start+end)/2;
-        //     if(nums[mid]==target) return mid;
-        //     if(nums[start]<nums[mid]){
-        //         if(target<nums[mid]){
-        //             end=mid-1;
-        //         }else{
-        //             start=mid+1;
-        //         }
-        //     }else{
-        //         if(target<nums[mid]){
-        //             end=mid-1;
-        //         }else{
-        //             start=mid+1;
-        //         }
-        //     }
-        // }
-        // return -1;
+    int s(vector<int>& nums,int t,int s,int e){
+        while(s<=e){
+            int mid=(s+e)/2;
+            if(nums[mid]==t) return mid;
+            if(t<nums[mid]) e=mid-1;
+            else s=mid+1;
+        }
+        return -1;
+    }
+    int search(vector<int>& nums, int t) {
+        int start=0,end=size(nums)-1;
+        while(start<=end){
+            int mid=(start+end)/2;
+            if(nums[mid]==t) return mid;
+            if(nums[mid]>=nums[start]){
+                if(t>nums[mid] || t<nums[start]) start=mid+1;
+                else{
+                    return s(nums,t,start,mid);
+                }
+            }else{
+                if(t<nums[mid] || t>nums[end]) end=mid-1;
+                else{
+                    return s(nums,t,mid,end);
+                }
+            }
+        }
+        return -1;
     }
 };
