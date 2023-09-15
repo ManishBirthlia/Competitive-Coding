@@ -1,34 +1,32 @@
 class Solution {
 public:
-    vector<int>v;
-    void makeSet(){
-        for(int i=0;i<1000;i++) v.push_back(i);
+    vector<int>set;
+    void makeSet(vector<vector<int>>& p){
+        for(int i=0;i<size(p);i++) set[i]=i;
     }
     int find(int i){
-        while(v[i]!=i) i=v[i];
+        while(set[i]!=i) i=set[i];
         return i;
     }
-    int minCostConnectPoints(vector<vector<int>>& points){
-        makeSet();
-        unordered_map<int,vector<int>>mp;
-        for(int i=0;i<size(points);i++) mp[i]=points[i];
+    int minCostConnectPoints(vector<vector<int>>& p){
+        int n=size(p),ans=0,count=0;
+        set.assign(n,0);
+        makeSet(p);
         priority_queue<vector<int>,vector<vector<int>>,greater<vector<int>>>pq;
-        for(int i=0;i<size(points);i++){
-            for(int j=i+1;j<size(points);j++){
-                int d=abs(points[i][0]-points[j][0]) + abs(points[i][1]-points[j][1]);
+        for(int i=0;i<n;i++){
+            for(int j=i+1;j<n;j++){
+                int d=abs(p[i][0]-p[j][0])+abs(p[i][1]-p[j][1]);
                 pq.push({d,i,j});
             }
         }
-        int ans=0,n=0;
-        while(!pq.empty()){
-            if(n==size(points)-1) break;
+        while(!pq.empty() && count<n-1){
             auto it=pq.top();
             pq.pop();
-            int f1=find(it[1]),f2=find(it[2]);
-            if(f1!=f2){
-                n++;
+            int r1=find(it[1]),r2=find(it[2]);
+            if(r1!=r2){
+                set[r1]=r2;
                 ans+=it[0];
-                v[f1]=f2;
+                count++;
             }
         }
         return ans;
