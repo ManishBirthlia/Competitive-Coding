@@ -1,34 +1,17 @@
 class Solution {
 public:
-    vector<int>set;
-    void makeSet(vector<vector<int>>& p){
-        for(int i=0;i<size(p);i++) set[i]=i;
-    }
-    int find(int i){
-        while(set[i]!=i) i=set[i];
-        return i;
-    }
-    int minCostConnectPoints(vector<vector<int>>& p){
-        int n=size(p),ans=0,count=0;
-        set.assign(n,0);
-        makeSet(p);
-        priority_queue<vector<int>,vector<vector<int>>,greater<vector<int>>>pq;
-        for(int i=0;i<n;i++){
-            for(int j=i+1;j<n;j++){
-                int d=abs(p[i][0]-p[j][0])+abs(p[i][1]-p[j][1]);
-                pq.push({d,i,j});
-            }
-        }
-        while(!pq.empty() && count<n-1){
-            auto it=pq.top();
+    int minCostConnectPoints(vector<vector<int>>& ps) {
+        int n=size(ps),i=0,count=0,res=0;
+        vector<bool>v(n,false);
+        priority_queue<pair<int,int>>pq;
+        while(++count<n){
+            v[i]=1;
+            for(int j=0;j<n;j++) if(!v[j]) pq.push({-abs(ps[i][0]-ps[j][0])-abs(ps[i][1]-ps[j][1]),j});
+            while(v[pq.top().second]) pq.pop();
+            res-=pq.top().first;
+            i=pq.top().second;
             pq.pop();
-            int r1=find(it[1]),r2=find(it[2]);
-            if(r1!=r2){
-                set[r1]=r2;
-                ans+=it[0];
-                count++;
-            }
         }
-        return ans;
+        return res;
     }
 };
