@@ -1,21 +1,16 @@
 class Solution {
 public:
     string decodeAtIndex(string s, int k){
-        long long size = 0;
-        int i;
-        for(i = 0; size < k; i++) {
-            if(isdigit(s[i])) size *= (s[i] - '0');
-            else size++; 
-        }
-        for(i = i - 1; i >= 0; i--) {
-            if(isdigit(s[i])){
-                size /= (s[i] - '0');
-                k %= size;
-            }else{
-                if(k % size == 0) return string(1, s[i]);
-                size--;
-            }
-        }
-        return "";
+        long size=0;
+        for(const char c:s)
+            if(isdigit(c)) size*=c-'0';
+            else ++size;
+        for(int i=s.length()-1; i>=0; --i){
+            k%=size;
+            if(k==0 && isalpha(s[i])) return string(1,s[i]);
+            if(isdigit(s[i])) size/=s[i]-'0';
+            else --size;
+        } 
+        throw;
     }
 };
