@@ -1,26 +1,21 @@
 class Solution {
 public:
     string decodeAtIndex(string s, int k){
-        string ans;
-        long long cnt=1;
-        int j=0;
-        for(int i=1;i<s.size();i++){
-            if(cnt>=k) break; 
-            if(s[i]<='9'&&s[i]>='1') cnt=cnt*(s[i]-'0'); 
-            else cnt++; 
-            j++;
+        long long size = 0;
+        int i;
+        for(i = 0; size < k; i++) {
+            if(isdigit(s[i])) size *= (s[i] - '0');
+            else size++; 
         }
-        int i=j;
-        while(i>=0){
-            if(s[i]<='9'&&s[i]>='1') cnt=cnt/(s[i]-'0'); 
-            else{
-                if(k==0||k==cnt) break; 
-                cnt--;
+        for(i = i - 1; i >= 0; i--) {
+            if(isdigit(s[i])){
+                size /= (s[i] - '0');
+                k %= size;
+            }else{
+                if(k % size == 0) return string(1, s[i]);
+                size--;
             }
-            if(cnt<=k) k=k%cnt;
-            i--;
         }
-        ans+=s[i];
-        return ans;
+        return "";
     }
 };
