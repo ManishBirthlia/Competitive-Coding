@@ -1,13 +1,14 @@
 class Solution {
 public:
     vector<int> singleNumber(vector<int>& nums) {
-        sort(nums.begin(),nums.end());
-        vector<int>ans;
-        for(int i=1;i<size(nums);i++){
-            if(nums[i]!=nums[i-1]) ans.push_back(nums[i-1]);
-            else i++;
+        long long ans=0;
+        for(auto it:nums) ans^=it;
+        long long bit=ans&~(ans-1);
+        int x=0,y=0;
+        for(auto it:nums){
+            if(it&bit) x^=it;
+            else y^=it;
         }
-        if(ans.size()==1) ans.push_back(nums.back());
-        return ans;
+        return {x,y};
     }
 };
