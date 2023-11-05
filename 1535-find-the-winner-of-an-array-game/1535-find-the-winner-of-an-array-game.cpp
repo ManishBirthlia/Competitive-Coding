@@ -1,20 +1,13 @@
 class Solution {
 public:
     int getWinner(vector<int>& arr, int k,int maxi=0) {
-        queue<int>q;
-        unordered_map<int,int>mp;
-        for(auto it:arr) q.push(it);
-        int f=q.front();
-        q.pop();
-        while(!q.empty()){
-            if(f>q.front()){
+        int f=arr[0];
+        for(int i=1;i<size(arr);i++){
+            if(f>arr[i]){
                 maxi++;
-                q.pop();
             }else{
                 maxi=1;
-                f=q.front();
-                q.pop();
-                mp[f]++;
+                f=arr[i];
             }
             if(maxi==k) return f;
         }
