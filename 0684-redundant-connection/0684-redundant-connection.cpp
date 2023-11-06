@@ -10,7 +10,10 @@ public:
         for(auto it:edges){
             int f=Unionfind(it[0]),s=Unionfind(it[1]);
             if(f==s) return it;
-            else u[s]=f;
+            else{
+                u[s]=f;
+                u[f]=u[s];
+            }
         }
         return {-1,-1};
     }
