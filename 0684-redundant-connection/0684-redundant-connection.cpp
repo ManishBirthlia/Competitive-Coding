@@ -1,21 +1,17 @@
 class Solution {
 public:
-    int set[1001];
-    void makeSet(){
-        for(int i=0;i<1000;i++) set[i]=i;
-    }
-    int find(int i){
-        while(set[i]!=i) i=set[i];
+    int u[1001];
+    int Unionfind(int i){
+        while(u[i]!=i) i=u[i];
         return i;
     }
-    vector<int> findRedundantConnection(vector<vector<int>>& edges){
-        makeSet();
+    vector<int> findRedundantConnection(vector<vector<int>>& edges) {
+        for(int i=0;i<1001;i++) u[i]=i;
         for(auto it:edges){
-            int pa=find(it[0]),pb=find(it[1]);
-            if(pa!=pb){
-                set[pa]=pb;
-            }else return it;
+            int f=Unionfind(it[0]),s=Unionfind(it[1]);
+            if(f==s) return it;
+            else u[s]=f;
         }
-        return edges[2];
+        return {-1,-1};
     }
 };
