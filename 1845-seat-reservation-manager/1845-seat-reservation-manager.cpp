@@ -5,9 +5,9 @@ public:
         for(int i=1;i<=n;i++) pq.push(-i);
     }
     int reserve() {
-        int t=pq.top();
+        int seat=pq.top();
         pq.pop();
-        return -t;
+        return -seat;
     }
     void unreserve(int seatNumber) {
         pq.push(-seatNumber);
