@@ -11,11 +11,9 @@ public:
         for(int i=0;i<=n;i++) u[i][0]=i;
         for(auto it:edges){
             int f=Unionfind(it[0]),s=Unionfind(it[1]);
-            if(f==s){
-                // for(auto x:u) cout<<x[1]<<endl;
-                return it;
-            }else{
-                if(u[s][1]>u[f][1]){
+            if(f==s)return it;
+            else{
+                if(u[s][1]>=u[f][1]){
                     u[f][0]=s;
                     u[s][1]++;
                 }else{
