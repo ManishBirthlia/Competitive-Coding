@@ -1,17 +1,22 @@
 class Solution {
 public:
-    long long m=1e9+7;
-    int countNicePairs(vector<int>& nums) {
-        unordered_map<long long,long long>mp;
-        long long ans=0;
-        for(auto it:nums){ 
-            string s=to_string(it);
-            reverse(s.begin(),s.end());
-            long long rev=stoi(s);
-            mp[it-rev]++;
+    int m=1e9+7;
+    int reverse(int n,int ans=0){
+        while(n){
+            ans+=n%10;
+            n/=10;
+            if(n) ans*=10;
         }
+        return ans;
+    }
+    int countNicePairs(vector<int>& nums) {
+        unordered_map<int,int>mp;
+        long long ans=0;
+        for(auto it:nums) mp[it-reverse(it)]++;
         for(auto it:mp){
-            ans=(ans+(it.second)*(it.second-1)/2)%m;
+            long long t=it.second;
+            ans+=t*(t-1)/2;
+            ans%=m;
         }
         return ans;
     }
