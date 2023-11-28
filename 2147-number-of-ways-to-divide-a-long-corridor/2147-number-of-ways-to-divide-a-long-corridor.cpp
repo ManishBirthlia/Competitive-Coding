@@ -1,9 +1,9 @@
 class Solution {
 public:
     int numberOfWays(string corridor) {
-        // ios::sync_with_stdio(false);
-        // cout.tie(0);
-        // cin.tie(0);
+        ios::sync_with_stdio(false);
+        cout.tie(0);
+        cin.tie(0);
         const int MOD = 1e9 + 7;
         int seatNum = 0;
         for (auto i : corridor)
