@@ -1,28 +1,23 @@
 class Solution {
 public:
-    vector<vector<int>> kSmallestPairs(vector<int>& nums1, vector<int>& nums2, int k) {
+    vector<vector<int>> kSmallestPairs(vector<int>& n1, vector<int>& n2, int k) {
+        priority_queue<vector<int>>pq;
         vector<vector<int>>ans;
-        priority_queue<pair<int,vector<int>>>pq;
-        for(int i=0;i<size(nums1);i++){
-            for(int j=0;j<size(nums2);j++){
-                if(i==size(nums1)) break;
-                if(pq.size()<k) pq.push({nums1[i]+nums2[j],{nums1[i],nums2[j]}});
-                else{
-                    if(pq.top().first>nums1[i]+nums2[j]){
-                        pq.pop();
-                        pq.push({nums1[i]+nums2[j],{nums1[i],nums2[j]}});
-                    }else if(pq.top().first<=nums1[i]+nums2[j]){
-                        if(j==0) break;
-                        i++;
-                        j=-1;
-                    }
-                }
+        for(auto i:n1){
+            for(auto j:n2){
+                if(pq.size()<k) pq.push({i+j,i,j});
+                else if(pq.top()[0]>i+j){
+                    pq.pop();
+                    pq.push({i+j,i,j});
+                }else if(pq.top()[0]<=i+j && pq.size()==k) break;
             }
         }
-        while(!pq.empty()){
-            ans.push_back(pq.top().second);
+        while(k--){
+            auto it=pq.top();
+            ans.push_back({it[1],it[2]});
             pq.pop();
         }
+        reverse(ans.begin(),ans.end());
         return ans;
     }
 };
