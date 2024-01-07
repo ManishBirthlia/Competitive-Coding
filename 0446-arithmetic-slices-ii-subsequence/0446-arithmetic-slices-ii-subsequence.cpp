@@ -1,6 +1,7 @@
 class Solution {
 public:
     int numberOfArithmeticSlices(vector<int>& nums) {
+        ios_base::sync_with_stdio(0), cin.tie(0), cout.tie(0);
         int ans=0,n=size(nums);
         if(n==1 || n==2) return 0;
         vector<unordered_map<long long,int>>dp(n);
