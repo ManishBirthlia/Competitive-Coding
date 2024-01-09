@@ -21,8 +21,6 @@ public:
     bool leafSimilar(TreeNode* root1, TreeNode* root2){
         dfs(root1,a);
         dfs(root2,b);
-        if(a.size()!=b.size()) return false;
-        for(int i=0;i<a.size();i++) if(a[i]!=b[i]) return false;
-        return true;
+        return a==b;
     }
 };
