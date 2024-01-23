@@ -1,7 +1,6 @@
 class Solution {
 public:
     // **** Manish ****
-    map<int,map<string,int>>dp;
     bool check(string s1,string s2){
         unordered_map<char,int>mp;
         for(auto it:s2){ 
@@ -13,10 +12,9 @@ public:
     }
     int maxLength(vector<string>& arr,string s="",int i=0) {
         if(i==size(arr)) return size(s);
-        if(dp.count(i) && dp[i].count(s)) return dp[i][s];
         int a,b;
         a=maxLength(arr,s,i+1);
         b=check(s,arr[i])?maxLength(arr,s+arr[i],i+1):0;
-        return dp[i][s]=max(a,b); 
+        return max(a,b); 
     }
 };
