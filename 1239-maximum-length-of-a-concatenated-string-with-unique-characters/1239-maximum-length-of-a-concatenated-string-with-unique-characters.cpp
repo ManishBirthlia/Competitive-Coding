@@ -1,7 +1,7 @@
 class Solution {
 public:
     // **** Manish ****
-    unordered_map<int,unordered_map<string,int>>dp;
+    map<int,map<string,int>>dp;
     bool check(string s1,string s2){
         unordered_map<char,int>mp;
         for(auto it:s2){ 
