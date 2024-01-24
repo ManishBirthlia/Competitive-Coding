@@ -11,21 +11,14 @@
  */
 class Solution {
 public:
-    int dfs(TreeNode* root,unordered_map<int,int>mp={}){
+    int pseudoPalindromicPaths (TreeNode* root,unordered_map<int,int>mp={}){
         if(!root) return 0;
         mp[root->val]++;
         if(!root->left && !root->right){
             int count=0;
             for(auto it:mp) if(it.second%2!=0) count++;
-            if(count==0 || count==1) return 1;
-            return 0;
+            return count>1?0:1;
         }
-        int a,b;
-        a=dfs(root->left,mp);
-        b=dfs(root->right,mp);
-        return a+b;
-    }
-    int pseudoPalindromicPaths (TreeNode* root) {
-        return dfs(root);
+        return pseudoPalindromicPaths(root->left,mp) + pseudoPalindromicPaths(root->right,mp);
     }
 };
