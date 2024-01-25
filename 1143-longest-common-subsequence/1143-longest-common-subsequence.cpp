@@ -1,5 +1,6 @@
 class Solution {
 public:
+    // **** Manish ****
     vector<vector<int>>dp;
     int dfs(string &s, string &t, int i=0, int j=0){
         if(i==size(s) || j==size(t)) return 0;
@@ -11,8 +12,8 @@ public:
         c=dfs(s,t,i,j+1);
         return dp[i][j]=max(a,max(b,c));
     }
-    int longestCommonSubsequence(string text1, string text2) {
-        dp.assign(size(text1),vector<int>(size(text2),-1));
-        return dfs(text1,text2);
+    int longestCommonSubsequence(string t1, string t2) {
+        dp.assign(size(t1),vector<int>(size(t2),-1));
+        return dfs(t1,t2);
     }
 };
