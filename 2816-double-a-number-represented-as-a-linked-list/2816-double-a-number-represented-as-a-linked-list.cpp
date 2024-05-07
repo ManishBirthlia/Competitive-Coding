@@ -10,33 +10,31 @@
  */
 class Solution {
 public:
-    ListNode* reverse(ListNode* temp2,ListNode* temp1=NULL){
-        while(temp2){
-            ListNode* temp3=temp2->next;
-            temp2->next=temp1;
-            temp1=temp2;
-            temp2=temp3;
+    ListNode* reverse(ListNode *head){
+        ListNode* prev=NULL;
+        ListNode* front=head;
+        while(head){
+            front=front->next;
+            head->next=prev;
+            prev=head;
+            head=front;
         }
-        return temp1;
+        return prev;
     }
     ListNode* doubleIt(ListNode* head) {
         head=reverse(head);
-        int curr=0;
         ListNode* temp=head;
-        ListNode* temp2;
-        while(curr||temp){
-            int v=temp->val;
-            temp->val=(v*2+curr)%10;
-            curr=(v*2+curr)/10;
-            if(!temp->next && curr){
-                ListNode* newNode=new ListNode(curr);
-                curr=0;
-                temp->next=newNode;
-                break;
-            }
+        int curr=0,c;
+        while(temp->next){
+            c=(2*temp->val+curr);
+            temp->val=c%10;
+            curr=c/10;
             temp=temp->next;
         }
-        head=reverse(head);
-        return head;
+        c=(2*temp->val+curr);
+        curr=c/10;
+        temp->val=c%10;
+        if(c>9) temp->next=new ListNode(curr);
+        return reverse(head);
     }
 };
