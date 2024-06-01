@@ -1,5 +1,6 @@
 class Solution {
 public:
+    // Solved by Manish Kumar
     vector<vector<int>> threeSum(vector<int>& nums) {
         sort(nums.begin(),nums.end());
         vector<vector<int>>ans;
